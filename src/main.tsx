@@ -6,12 +6,14 @@ import "./fonts/fonts.css";
 import "./EricMeyerReset.css";
 import "./index.css";
 import App from "./App.tsx";
+import { AuthProvider } from "./auth/useAuth.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      {" "}
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </Provider>
   </StrictMode>
 );
