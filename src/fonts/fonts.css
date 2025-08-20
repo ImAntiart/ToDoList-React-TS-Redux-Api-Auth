@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'TT Lakes';
+  src: url('/src/assets/fonts/TypeType\ -\ TTLakes-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'TT Lakes black';
+  src: url('/src/assets/fonts/TypeType - TTLakesCompressed-Black.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'TT Lakes bold';
+  src: url('/src/assets/fonts/TypeType - TTLakesCondensed-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Lakes';
+  src: url('/src/assets/fonts/TTLakes-Regular.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'Amad';
+  src: url('/src/assets/fonts/AmadeusAP.ttf') format('ttf'),
+  url('/src/fonts/AmadeusAP.otf') format('otf');
+}
+
+@font-face {
+  font-family: 'Fet';
+  src: url('/src/fonts/Fet.ttf') format('ttf'),
+  url('/src/fonts/Fet.otf') format('otf'),
+  url('/src/fonts/Fet.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Courier';
+  src: url('/src/assets/fonts/couriercyrps_boldinclined.ttf') format('ttf'),
+  url('/src/fonts/couriercyrps_boldinclined.otf') format('otf');
+}

@@ -1,0 +1,64 @@
+.pagination-controls-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-sticker {
+  min-height: 120px;
+  width: 200px;
+  background: var(--note-bg);
+  border: 2px solid var(--note-border);
+  box-shadow: var(--shadow-sm), var(--shadow-inset);
+  border-radius: 0;
+  transform: rotate(-1deg);
+  font-family: var(--font-main);
+  font-size: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  gap: 10px;
+  position: relative;
+}
+
+.pagination-sticker:hover {
+  box-shadow: var(--shadow-md), var(--shadow-inset);
+}
+
+.pagination-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+}
+
+.pagination-label {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  color: var(--note-text);
+}
+
+.limit-select .MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+
+.limit-select .MuiSelect-select {
+  padding: 4px 8px !important;
+}
+
+@media (max-width: 480px) {
+  .pagination-sticker {
+    width: 180px;
+    min-height: 110px;
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .pagination-label,
+  .pagination-content {
+    font-size: 0.85rem;
+  }
+}
