@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/ToDoList-React-TS-Redux/', // ✅ Исправлено: должно совпадать с названием репозитория
+  base: '/ToDoList-React-TS-Redux/',
   plugins: [react()],
   server: {
     open: true,
