@@ -6,7 +6,7 @@ import "./fonts/fonts.css";
 import "./EricMeyerReset.css";
 import "./index.css";
 import App from "./App.tsx";
-import { AuthProvider } from "./auth/useAuth.ts";
+import { AuthProvider } from "./auth/AuthContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

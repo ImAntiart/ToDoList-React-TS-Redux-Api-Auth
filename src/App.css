@@ -19,6 +19,8 @@ body {
 #root {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
 }
 
@@ -352,9 +354,7 @@ body {
     gap: 10px;
     padding: 0;
   }
-
 }
-
 
 @media (min-width: 600px) and (max-width: 767px) {
   .board {
@@ -369,20 +369,17 @@ body {
 }
 
 @media (min-width: 1024px) and (max-width: 1279px) {
-  /* Средние десктопы: 4 колонки */
   .board {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (min-width: 1280px) {
-  /* Большие экраны: 5+ колонок */
   .board {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
-/* Боковые колонки показываем только на широких экранах */
 @media (max-width: 1023px) {
   .wood-column {
     display: none;
@@ -399,7 +396,6 @@ body {
     display: block;
   }
 }
-
 
 .date-filter-controls {
   display: flex;
@@ -449,7 +445,6 @@ body {
     gap: 8px;
   }
 }
-
 
 .board.loading-overlay {
   opacity: 0.6;
