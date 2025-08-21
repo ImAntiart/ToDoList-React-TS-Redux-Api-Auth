@@ -1,7 +1,7 @@
 // src/pages/RegisterForm.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../auth/useAuth";
 import { ApiError } from "../types/error";
 
 export const RegisterForm = () => {
@@ -95,6 +95,9 @@ export const RegisterForm = () => {
         {error && <div className="error-text">{error}</div>}
 
         <button type="submit">Зарегистрироваться</button>
+        <button type="button" onClick={() => navigate("/login")}>
+          Назад
+        </button>
       </form>
     </div>
   );

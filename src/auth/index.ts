@@ -1,4 +1,3 @@
 // src/auth/index.ts
-export * from './AuthContext';
-
-
+export { AuthProvider } from './AuthContext';
+export { useAuth } from './useAuth';

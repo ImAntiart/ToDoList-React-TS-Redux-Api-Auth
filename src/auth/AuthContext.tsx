@@ -1,4 +1,5 @@
-import { useEffect, createContext, useContext, useState } from "react";
+// src/auth/AuthContext.tsx
+import { createContext, useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/store";
 import { loginSuccess, logout as logoutAction, setProfile } from "./authSlice";
@@ -18,7 +19,7 @@ interface AuthContextType {
   isLoading: boolean;
 }
 
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,7 +28,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const login = (data: AuthResponse) => {
+  // ✅ Исправление 1: правильный параметр
+  const login = async (data: AuthResponse) => {
     const { accessToken, refreshToken } = data;
 
     localStorage.setItem("accessToken", accessToken);
@@ -36,16 +38,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setToken(accessToken);
     setIsAuthenticated(true);
     dispatch(loginSuccess({ user: null, token: accessToken, refreshToken }));
+
+    try {
+      const profile = await fetchProfile(accessToken);
+      setUser(profile);
+      dispatch(setProfile(profile));
+    } catch (err) {
+      console.error("Не удалось загрузить профиль:", err);
+      handleLogout();
+    }
   };
 
-  const handleLogout = () => {
+  // ✅ Исправление 2: оберни handleLogout в useCallback
+  const handleLogout = useCallback(() => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     setToken(null);
     setIsAuthenticated(false);
     setUser(null);
     dispatch(logoutAction());
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -62,7 +74,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(profile);
         setToken(accessToken);
         setIsAuthenticated(true);
-
         dispatch(loginSuccess({ user: profile, token: accessToken, refreshToken }));
         dispatch(setProfile(profile));
       } catch (rawError) {
@@ -90,29 +101,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         } finally {
           setIsLoading(false);
         }
+        return;
       }
+      setIsLoading(false);
     })();
-  }, [dispatch, handleLogout]);
+  }, [dispatch, handleLogout]); 
 
   return (
-    <AuthContext.Provider
-      value={{
-        isAuthenticated,
-        user,
-        token,
-        login,
-        logout: handleLogout,
-        isLoading,
-      }}>
+    <AuthContext.Provider value={{
+      isAuthenticated,
+      user,
+      token,
+      login,
+      logout: handleLogout,
+      isLoading,
+    }}>
       {children}
     </AuthContext.Provider>
   );
-};
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
 };
