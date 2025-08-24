@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import { ApiError } from "../types/error";
+import { ThemeProvider } from "../components/ThemeContext";
+import { ThemeToggle } from "../components/ThemeToggle";
 
 export const RegisterForm = () => {
   const [email, setEmail] = useState("");
@@ -64,42 +66,45 @@ export const RegisterForm = () => {
   };
 
   return (
-    <div className="form-page">
-      <form onSubmit={handleSubmit} className="input-area">
-        <h2>Регистрация</h2>
+    <ThemeProvider>
+      <ThemeToggle />
+      <div className="form-page">
+        <form onSubmit={handleSubmit} className="input-area">
+          <h2>Регистрация</h2>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="edit-todo-input"
-        />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="edit-todo-input"
+          />
 
-        <input
-          type="password"
-          placeholder="Пароль"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="edit-todo-input"
-        />
+          <input
+            type="password"
+            placeholder="Пароль"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="edit-todo-input"
+          />
 
-        <input
-          type="number"
-          placeholder="Возраст (опционально)"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-          className="edit-todo-input"
-        />
+          <input
+            type="number"
+            placeholder="Возраст (опционально)"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            className="edit-todo-input"
+          />
 
-        {error && <div className="error-text">{error}</div>}
+          {error && <div className="error-text">{error}</div>}
 
-        <button type="submit">Зарегистрироваться</button>
-        <button type="button" onClick={() => navigate("/login")}>
-          Назад
-        </button>
-      </form>
-    </div>
+          <button type="submit">Зарегистрироваться</button>
+          <button type="button" onClick={() => navigate("/login")}>
+            Назад
+          </button>
+        </form>
+      </div>
+    </ThemeProvider>
   );
 };
 

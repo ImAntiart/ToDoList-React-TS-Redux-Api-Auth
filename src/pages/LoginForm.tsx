@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
+import { ThemeProvider } from "../components/ThemeContext";
+import { ThemeToggle } from "../components/ThemeToggle";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -44,34 +46,37 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="form-page">
-      <form onSubmit={handleSubmit} className="input-area">
-        <h2>Вход</h2>
+    <ThemeProvider>
+      <ThemeToggle />
+      <div className="form-page">
+        <form onSubmit={handleSubmit} className="input-area">
+          <h2>Вход</h2>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="edit-todo-input"
-        />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="edit-todo-input"
+          />
 
-        <input
-          type="password"
-          placeholder="Пароль"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="edit-todo-input"
-        />
+          <input
+            type="password"
+            placeholder="Пароль"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="edit-todo-input"
+          />
 
-        {error && <div className="error-text">{error}</div>}
+          {error && <div className="error-text">{error}</div>}
 
-        <button type="submit">Войти</button>
-        <button type="button" onClick={() => navigate("/register")}>
-          Зарегистрироваться
-        </button>
-      </form>
-    </div>
+          <button type="submit">Войти</button>
+          <button type="button" onClick={() => navigate("/register")}>
+            Зарегистрироваться
+          </button>
+        </form>
+      </div>
+    </ThemeProvider>
   );
 };
 

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../App.css";
@@ -13,11 +14,14 @@ import {
 } from "../api/todos";
 import { fetchTodosAsync } from "../store/todoSlice";
 import { AppDispatch, RootState } from "../store/store";
-import { setSortOrder } from '../store/todoSlice';
-import { setFilter } from '../store/todoSlice';
+import { setSortOrder } from "../store/todoSlice";
+import { setFilter } from "../store/todoSlice";
+import { useAuth } from "../auth/useAuth";
 
 export const HomePage = () => {
-const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const todos = useSelector((state: RootState) => state.todos.todos);
   const filter = useSelector((state: RootState) => state.todos.filter);
@@ -66,16 +70,15 @@ const dispatch = useDispatch<AppDispatch>();
     }
   };
 
-const handleFilterChange = (newFilter: TodoFilter) => {
-  console.log('Filter changed to:', newFilter);
-  dispatch(setFilter(newFilter));
-  dispatch(fetchTodosAsync()); // 
-};
+  const handleFilterChange = (newFilter: TodoFilter) => {
+    console.log("Filter changed to:", newFilter);
+    dispatch(setFilter(newFilter));
+    dispatch(fetchTodosAsync()); //
+  };
 
-const handleSortChange = (newSortOrder: 'newest' | 'oldest') => {
-  dispatch(setSortOrder(newSortOrder));
-};
-
+  const handleSortChange = (newSortOrder: "newest" | "oldest") => {
+    dispatch(setSortOrder(newSortOrder));
+  };
 
   if (status === "failed") {
     return (
@@ -91,7 +94,7 @@ const handleSortChange = (newSortOrder: 'newest' | 'oldest') => {
     );
   }
 
-const processedTodos = [...todos].sort((a, b) => {
+  const processedTodos = [...todos].sort((a, b) => {
     if (sortOrder === "newest") {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     } else {
@@ -104,6 +107,14 @@ const processedTodos = [...todos].sort((a, b) => {
       <ThemeToggle />
       <header className="header">
         <h1>Список задач</h1>
+        <div className="header-profile">
+          <button className="button" onClick={() => navigate("/profile")}>
+            Профиль
+          </button>
+          <button className="button" onClick={logout}>
+            Выйти
+          </button>
+        </div>
       </header>
       <main className="main">
         <aside className="wood-column left"></aside>
@@ -120,8 +131,6 @@ const processedTodos = [...todos].sort((a, b) => {
           onSave={handleSaveTodo}
           onDelete={handleDeleteTodo}
         />
-
-        
       </main>
 
       <footer className="footer">
@@ -129,6 +138,8 @@ const processedTodos = [...todos].sort((a, b) => {
       </footer>
     </ThemeProvider>
   );
-}
+};
 
 export default HomePage;
+
+
