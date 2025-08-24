@@ -26,7 +26,7 @@ const RootLayoutController = () => {
 
 function App() {
   return (
-    <Router>
+    <Router basename="/ToDoList-React-TS-Redux-Api-Auth">
       <>
         <RootLayoutController />
         <Routes>
